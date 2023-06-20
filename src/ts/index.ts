@@ -32,7 +32,7 @@ planet.position = new Vector3(0, 0, 0);
 
 camera.setTarget(planet.position);
 
-const material = new GasPlanetMaterial(planet, 25, scene);
+const material = new GasPlanetMaterial(planet, Math.random() * 1e6, scene);
 planet.material = material;
 
 const atmosphere = new AtmosphericScatteringPostProcess("atmosphere", planet, 0.5, 0.52, light, camera, scene.enableDepthRenderer(), scene);
