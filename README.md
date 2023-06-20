@@ -1,8 +1,10 @@
-# BabylonJS Template
+# Procedural Gas Giants
 
-[![NodeJS with Webpack](https://github.com/BarthPaleologue/babylonjs-template/actions/workflows/webpack.yml/badge.svg)](https://github.com/BarthPaleologue/babylonjs-template/actions/workflows/webpack.yml)
+[![NodeJS with Webpack](https://github.com/BarthPaleologue/procedural-gas-giants/actions/workflows/webpack.yml/badge.svg)](https://github.com/BarthPaleologue/procedural-gas-giants/actions/workflows/webpack.yml)
 
-A simple template to quick start a BabylonJS project with a working webpack config out of the box and prettier and eslint.
+![Procedural Gas Giants](cover.png)
+
+A tutorial on how to procedurally generate gas giants using BabylonJS like in [PlanetEngine](https://barth.paleologue.fr/planetEngine). See the article [here]().
 
 This project has been created using **webpack-cli**, you can now run
 

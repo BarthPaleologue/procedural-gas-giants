@@ -1,18 +1,14 @@
 import { Engine } from "@babylonjs/core/Engines/engine";
 import { Scene } from "@babylonjs/core/scene";
-import { FreeCamera } from "@babylonjs/core/Cameras/freeCamera";
+import { ArcRotateCamera } from "@babylonjs/core/Cameras/arcRotateCamera";
 import { Vector3 } from "@babylonjs/core/Maths/math.vector";
 import { MeshBuilder } from "@babylonjs/core/Meshes/meshBuilder";
-import { Effect } from "@babylonjs/core/Materials/effect";
-import { PostProcess } from "@babylonjs/core/PostProcesses/postProcess";
-import { Texture } from "@babylonjs/core/Materials/Textures/texture";
 import { PointLight } from "@babylonjs/core/Lights/pointLight";
 import "@babylonjs/core/Materials/standardMaterial";
 import "@babylonjs/core/Loading/loadingScreen";
 
 import "../styles/index.scss";
-
-import postprocessCode from "../shaders/smallPostProcess.glsl";
+import { GasPlanetMaterial } from "./gasPlanetMaterial";
 
 const canvas = document.getElementById("renderer") as HTMLCanvasElement;
 canvas.width = window.innerWidth;
@@ -21,26 +17,25 @@ canvas.height = window.innerHeight;
 const engine = new Engine(canvas);
 
 const scene = new Scene(engine);
+scene.clearColor.set(0, 0, 0, 1);
 
-const camera = new FreeCamera("camera", Vector3.Zero(), scene);
+const camera = new ArcRotateCamera("camera", -1.5, 1.5, 2, new Vector3(0, 0, 0), scene);
+camera.lowerRadiusLimit = 1.5;
+camera.wheelDeltaPercentage = 0.01;
 camera.attachControl();
 
-const light = new PointLight("light", new Vector3(-5, 5, 10), scene);
+const light = new PointLight("light", new Vector3(-5, 1, -5).scaleInPlace(100), scene);
 
-const sphere = MeshBuilder.CreateSphere("sphere", { segments: 32, diameter: 1 }, scene);
-sphere.position = new Vector3(0, 0, 10);
+const planet = MeshBuilder.CreateSphere("sphere", { segments: 64, diameter: 1 }, scene);
+planet.position = new Vector3(0, 0, 0);
 
-Effect.ShadersStore[`PostProcess1FragmentShader`] = postprocessCode;
-const postProcess = new PostProcess("postProcess1", "PostProcess1", [], ["textureSampler"], 1, camera, Texture.BILINEAR_SAMPLINGMODE, engine);
+camera.setTarget(planet.position);
 
-let clock = 0;
+const material = new GasPlanetMaterial(planet, 25, scene);
+planet.material = material;
 
 function updateScene() {
-    const deltaTime = engine.getDeltaTime() / 1000;
-    clock += deltaTime;
-
-    sphere.position.x = Math.cos(clock);
-    sphere.position.z = 5 + Math.sin(clock);
+    material.update(camera, light);
 }
 
 scene.executeWhenReady(() => {
@@ -54,4 +49,3 @@ window.addEventListener("resize", () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 });
-

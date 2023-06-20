@@ -7,6 +7,7 @@
     "css-loader": "^6.7.3",
     "eslint": "^8.38.0",
     "eslint-plugin-import": "^2.27.5",
+    "extended-random": "^1.2.2",
     "glslify-loader": "^2.0.0",
     "html-loader": "^4.2.0",
     "html-webpack-plugin": "^5.5.1",
@@ -15,6 +16,7 @@
     "raw-loader": "^4.0.2",
     "sass": "^1.62.0",
     "sass-loader": "^13.2.2",
+    "squirrel-noise": "^1.0.0",
     "style-loader": "^3.3.2",
     "ts-loader": "^9.4.2",
     "ts-node": "^10.9.1",
@@ -25,8 +27,8 @@
     "webpack-dev-server": "^4.13.3"
   },
   "version": "1.0.0",
-  "description": "BabylonJS template with webpack and Typescript",
-  "name": "babylonjs-template",
+  "description": "Procedural Gas Giants with Babylon.js",
+  "name": "procedural-gas-giants",
   "scripts": {
     "build": "webpack --mode=production --node-env=production",
     "build:dev": "webpack --mode=development",
