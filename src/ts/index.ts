@@ -9,6 +9,7 @@ import "@babylonjs/core/Loading/loadingScreen";
 
 import "../styles/index.scss";
 import { GasPlanetMaterial } from "./gasPlanetMaterial";
+import { AtmosphericScatteringPostProcess } from "./atmosphericScattering";
 
 const canvas = document.getElementById("renderer") as HTMLCanvasElement;
 canvas.width = window.innerWidth;
@@ -33,6 +34,8 @@ camera.setTarget(planet.position);
 
 const material = new GasPlanetMaterial(planet, 25, scene);
 planet.material = material;
+
+const atmosphere = new AtmosphericScatteringPostProcess("atmosphere", planet, 0.5, 0.52, light, camera, scene.enableDepthRenderer(), scene);
 
 function updateScene() {
     material.update(camera, light);
