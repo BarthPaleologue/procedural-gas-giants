@@ -21,8 +21,6 @@ uniform float seed;
 
 #pragma glslify: lerp = require(./lerp.glsl)
 
-#pragma glslify: saturate = require(./saturate.glsl)
-
 void main() {
     vec3 viewRayW = normalize(cameraPosition - vPositionW); // view direction in world space
 
@@ -35,8 +33,6 @@ void main() {
     vec3 angleW = normalize(viewRayW + starLightRayW);
     float specComp = max(0.0, dot(normalW, angleW));
     
-    ndl = saturate(ndl);
-    specComp = saturate(specComp);
     specComp = pow(specComp, 16.0) * 0.5;
 
     vec3 color = vec3(0.0);
